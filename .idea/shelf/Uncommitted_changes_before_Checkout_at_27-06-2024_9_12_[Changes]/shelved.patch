@@ -1,0 +1,12 @@
+Index: README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/README.md b/README.md
+new file mode 100644
+--- /dev/null	(date 1719493965559)
++++ b/README.md	(date 1719493965559)
+@@ -0,0 +1,1 @@
++Integrante: Fransheska Valenzuela
+\ No newline at end of file
