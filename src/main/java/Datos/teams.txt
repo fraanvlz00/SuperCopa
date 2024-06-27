@@ -1,0 +1,4 @@
+01;Australia;48;aus.png
+02;Cameroon;32;cmr.png
+03;Chile;12;chi.png
+04;Germany;7;ger.png
