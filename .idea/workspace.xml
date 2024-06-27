@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="918c5b48-5793-4a70-b3cf-5300b5e2d7e0" name="Changes" comment="base proyecto">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
+    <list default="true" id="918c5b48-5793-4a70-b3cf-5300b5e2d7e0" name="Changes" comment="commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Dominio/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dominio/Jugador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Dominio/Posicion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dominio/Posicion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Dominio/Team.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Dominio/Team.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ventanas/VentanaEquipo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ventanas/VentanaEquipo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Ventanas/VentanaJugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Ventanas/VentanaJugador.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +54,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Launcher.executor": "Run",
+    "Application.VentanaEquipo.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "fran",
@@ -65,16 +72,6 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="Launcher" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="Main.Launcher" />
-      <module name="SuperCopa" />
-      <option name="VM_PARAMETERS" value="--module-path $USER_HOME$/OneDrive/Escritorio/javafx-sdk-22.0.1/lib --add-modules javafx.controls,javafx.fxml " />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -90,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1719493191308</updated>
-      <workItem from="1719493192398" duration="9490000" />
+      <workItem from="1719493192398" duration="13445000" />
     </task>
     <task id="LOCAL-00001" summary="r">
       <option name="closed" value="true" />
@@ -124,7 +121,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719494179513</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="commit">
+      <option name="closed" value="true" />
+      <created>1719525673984</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719525673984</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +139,7 @@
     <MESSAGE value="r" />
     <MESSAGE value="Readme" />
     <MESSAGE value="base proyecto" />
-    <option name="LAST_COMMIT_MESSAGE" value="base proyecto" />
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
 </project>

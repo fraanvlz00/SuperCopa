@@ -1,89 +1,86 @@
 package Ventanas;
 
-import Dominio.Jugador;
 import Dominio.Team;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import Dominio.Jugador;
+import Dominio.Posicion;
 
-public class VentanaJugador extends Stage {
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 
+public class VentanaJugador extends JFrame {
     private Team team;
-    private TableView<Jugador> tableView;
-    private TextField textFieldNombre;
-    private TextField textFieldNumero;
-    private ComboBox<String> comboBoxPosicion;
-    private Button buttonGuardar;
+    private JTable table;
+    private DefaultTableModel tableModel;
 
     public VentanaJugador(Team team) {
         this.team = team;
         setTitle("Players");
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-        tableView = new TableView<>();
-        TableColumn<Jugador, Integer> columnNumero = new TableColumn<>("Number");
-        columnNumero.setCellValueFactory(cellData -> cellData.getValue().numeroProperty().asObject());
-        TableColumn<Jugador, String> columnNombre = new TableColumn<>("Name");
-        columnNombre.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
-        TableColumn<Jugador, String> columnPosicion = new TableColumn<>("Position");
-        columnPosicion.setCellValueFactory(cellData -> cellData.getValue().posicionProperty());
+        String[] columnNames = {"Number", "Name", "Position"};
+        Object[][] data = new Object[team.getJugadores().size()][3];
+        for (int i = 0; i < team.getJugadores().size(); i++) {
+            Jugador jugador = team.getJugadores().get(i);
+            data[i][0] = jugador.getNumero();
+            data[i][1] = jugador.getNombre();
+            data[i][2] = jugador.getPosicion().name();
+        }
+        tableModel = new DefaultTableModel(data, columnNames);
+        table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
 
-        tableView.getColumns().addAll(columnNumero, columnNombre, columnPosicion);
-        tableView.getItems().addAll(team.getJugadores());
+        JButton buttonEdit = new JButton("Edit player");
+        buttonEdit.addActionListener(e -> {
+            editarJugador();
+        });
 
-        textFieldNombre = new TextField();
-        textFieldNumero = new TextField();
-        comboBoxPosicion = new ComboBox<>();
-        comboBoxPosicion.getItems().addAll("GK", "DF", "MF", "FW");
+        JButton buttonEliminar = new JButton("Delete player");
+        buttonEliminar.addActionListener(e -> {
+            eliminarJugador();
+        });
 
-        buttonGuardar = new Button("Save changes");
-        buttonGuardar.setOnAction(event -> guardarCambiosJugador());
+        JButton buttonBack = new JButton("Back");
+        buttonBack.addActionListener(e -> dispose());
 
-        Button buttonEdit = new Button("Edit player");
-        buttonEdit.setOnAction(event -> mostrarDetallesJugador());
+        JPanel buttonPane = new JPanel();
+        buttonPane.add(buttonEdit);
+        buttonPane.add(buttonEliminar);
+        buttonPane.add(buttonBack);
 
-        Button buttonBack = new Button("Back");
-        buttonBack.setOnAction(event -> close());
-
-        GridPane formPane = new GridPane();
-        formPane.setPadding(new Insets(10));
-        formPane.setHgap(10);
-        formPane.setVgap(10);
-        formPane.add(new Label("Name:"), 0, 0);
-        formPane.add(textFieldNombre, 1, 0);
-        formPane.add(new Label("Number:"), 0, 1);
-        formPane.add(textFieldNumero, 1, 1);
-        formPane.add(new Label("Position:"), 0, 2);
-        formPane.add(comboBoxPosicion, 1, 2);
-
-        VBox vBox = new VBox(10, new Label("Official formation"), tableView, formPane, new HBox(10, buttonEdit, buttonGuardar, buttonBack));
-        vBox.setPadding(new Insets(10));
-
-        Scene scene = new Scene(vBox, 600, 400);
-        setScene(scene);
+        setLayout(new BorderLayout());
+        add(new JLabel("Official formation"), BorderLayout.NORTH);
+        add(scrollPane, BorderLayout.CENTER);
+        add(buttonPane, BorderLayout.PAGE_END);
     }
 
-    private void mostrarDetallesJugador() {
-        Jugador jugadorSeleccionado = tableView.getSelectionModel().getSelectedItem();
-        if (jugadorSeleccionado != null) {
-            textFieldNombre.setText(jugadorSeleccionado.getNombre());
-            textFieldNumero.setText(String.valueOf(jugadorSeleccionado.getNumero()));
-            comboBoxPosicion.setValue(jugadorSeleccionado.getPosicion().name());
+    private void editarJugador() {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            int numero = (int) table.getValueAt(selectedRow, 0);
+            Jugador jugador = team.buscarJugador(numero);
+
+            String nuevoNombre = JOptionPane.showInputDialog(this, "Enter new name:", jugador.getNombre());
+            if (nuevoNombre != null && !nuevoNombre.trim().isEmpty()) {
+                String nuevaPosicion = (String) JOptionPane.showInputDialog(this, "Select new position:",
+                        "Position", JOptionPane.QUESTION_MESSAGE, null, new String[]{"GK", "DF", "MF", "FW"}, jugador.getPosicion().name());
+                if (nuevaPosicion != null) {
+                    team.actualizarJugador(numero, nuevoNombre, Posicion.valueOf(nuevaPosicion));
+                    table.setValueAt(nuevoNombre, selectedRow, 1);
+                    table.setValueAt(nuevaPosicion, selectedRow, 2);
+                }
+            }
         }
     }
 
-    private void guardarCambiosJugador() {
-        Jugador jugadorSeleccionado = tableView.getSelectionModel().getSelectedItem();
-        if (jugadorSeleccionado != null) {
-            jugadorSeleccionado.setNombre(textFieldNombre.getText());
-            jugadorSeleccionado.setNumero(Integer.parseInt(textFieldNumero.getText()));
-            jugadorSeleccionado.setPosicion(Dominio.Posicion.valueOf(comboBoxPosicion.getValue()));
-            team.actualizarJugador(jugadorSeleccionado);
-            tableView.refresh();
+    private void eliminarJugador() {
+        int selectedRow = table.getSelectedRow();
+        if (selectedRow != -1) {
+            int numero = (int) table.getValueAt(selectedRow, 0);
+            team.eliminarJugador(numero);
+            tableModel.removeRow(selectedRow);
         }
     }
 }
-

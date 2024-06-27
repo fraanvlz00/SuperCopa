@@ -5,55 +5,40 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 
 public class Jugador {
-	private SimpleIntegerProperty numero;
-	private SimpleStringProperty nombre;
-	private SimpleStringProperty posicion;
+	private int numero;
+	private String nombre;
+	private Posicion posicion;
 
 	public Jugador(int numero, String nombre, Posicion posicion) {
-		this.numero = new SimpleIntegerProperty(numero);
-		this.nombre = new SimpleStringProperty(nombre);
-		this.posicion = new SimpleStringProperty(posicion.name());
+		this.numero = numero;
+		this.nombre = nombre;
+		this.posicion = posicion;
 	}
 
 	public int getNumero() {
-		return numero.get();
-	}
-
-	public void setNumero(int numero) {
-		this.numero.set(numero);
-	}
-
-	public String getNombre() {
-		return nombre.get();
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre.set(nombre);
-	}
-
-	public Posicion getPosicion() {
-		return Posicion.valueOf(posicion.get());
-	}
-
-	public void setPosicion(Posicion posicion) {
-		this.posicion.set(posicion.name());
-	}
-
-	public SimpleIntegerProperty numeroProperty() {
 		return numero;
 	}
 
-	public StringProperty nombreProperty() {
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public String getNombre() {
 		return nombre;
 	}
 
-	public StringProperty posicionProperty() {
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Posicion getPosicion() {
 		return posicion;
+	}
+
+	public void setPosicion(Posicion posicion) {
+		this.posicion = posicion;
 	}
 
 	public static List<Jugador> cargarJugadores(String rutaArchivo) throws IOException {
